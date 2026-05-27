@@ -1,11 +1,13 @@
-import { Text, View } from "react-native";
+import { useUser } from "@clerk/expo";
+import { Redirect } from "expo-router";
+
 
 export default function Index() {
-  return (
-    <View
-      className="bg-red-500 flex-1 justify-center items-center text-white"
-    >
-      <Text style={{ color: "white" }}>Hello World from index.tsx</Text>
-    </View>
-  );
+  const { isSignedIn } = useUser()
+  
+  if (isSignedIn) {
+    return <Redirect href="/(root)/(tabs)" />
+  } else {
+    return <Redirect href="/(auth)/sign-in" />
+  }
 }
